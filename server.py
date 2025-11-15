@@ -3,8 +3,10 @@ import pickle
 import json
 import numpy as np
 import pandas as pd
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 model = pickle.load(open('bangalore_home_prices_model.pickle', 'rb'))
 
@@ -37,3 +39,4 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
