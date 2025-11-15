@@ -1,74 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>House Price Prediction</title>
+
     <style>
         body {
+            margin: 0;
+            padding: 0;
             background: #111;
-            color: white;
-            font-family: Arial;
-            padding: 40px;
+            font-family: Arial, sans-serif;
         }
+
+        /* FULL CENTER */
         .container {
-            width: 300px;
-            margin: auto;
-            padding: 20px;
-            background: #222;
-            border-radius: 10px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        input, select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-            border-radius: 5px;
-            border: none;
+
+        /* CARD */
+        .card {
+            background: #1e1e1e;
+            padding: 35px 40px;
+            border-radius: 15px;
+            width: 360px;
+            box-shadow: 0 0 20px #00000060;
+            text-align: center;
         }
-        button {
+
+        /* TITLE */
+        .card h1 {
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        /* INPUTS */
+        .card input {
             width: 100%;
-            padding: 10px;
-            background: #4CAF50;
+            padding: 12px;
+            margin-bottom: 15px;
             border: none;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        /* BUTTON */
+        .card button {
+            width: 100%;
+            background: #34a853;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card button:hover {
+            background: #2f8b49;
+        }
+
+        /* RESULT */
+        #result {
             color: white;
             margin-top: 20px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        h2 {
-            text-align: center;
+            font-size: 18px;
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <h2>Predict House Price</h2>
+        <div class="card">
+            <h1>Predict House Price</h1>
 
-        <form id="form">
-            <input type="text" name="location" placeholder="Location">
-            <input type="number" name="sqft" placeholder="Sqft">
-            <input type="number" name="bath" placeholder="Bath">
-            <input type="number" name="bhk" placeholder="BHK">
-            <button type="submit">Predict</button>
-        </form>
+            <form id="form">
+                <input name="location" placeholder="Location" required />
+                <input name="sqft" type="number" placeholder="Sqft" required />
+                <input name="bath" type="number" placeholder="Bath" required />
+                <input name="bhk" type="number" placeholder="BHK" required />
 
-        <h3 id="result"></h3>
+                <button type="submit">Predict</button>
+            </form>
+
+            <h2 id="result"></h2>
+        </div>
     </div>
 
-<script>
-document.getElementById("form").onsubmit = async (e) => {
-    e.preventDefault();
-    
-    let formData = new FormData(e.target);
-    let response = await fetch("https://house-price-api-s8b3.onrender.com/predict", {
-        method: "POST",
-        body: formData
-    });
+    <script>
+        const API_URL = "https://house-price-api-s8b3.onrender.com";
 
-    let data = await response.json();
-    document.getElementById("result").innerHTML =
-        "Estimated Price: ₹ " + data.price + " Lakhs";
-}
-</script>
+        document.getElementById("form").onsubmit = async function (e) {
+            e.preventDefault();
 
+            let formData = new FormData(e.target);
+
+            let response = await fetch(API_URL + "/predict", {
+                method: "POST",
+                body: formData,
+            });
+
+            let data = await response.json();
+
+            document.getElementById("result").textContent =
+                "Estimated Price: ₹ " + data.price + " Lakhs";
+        };
+    </script>
 </body>
 </html>
