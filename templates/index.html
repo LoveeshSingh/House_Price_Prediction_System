@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Prediction</title>
+    <style>
+        body {
+            background: #111;
+            color: white;
+            font-family: Arial;
+            padding: 40px;
+        }
+        .container {
+            width: 300px;
+            margin: auto;
+            padding: 20px;
+            background: #222;
+            border-radius: 10px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            border: none;
+            color: white;
+            margin-top: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Predict House Price</h2>
+
+        <form id="form">
+            <input type="text" name="location" placeholder="Location">
+            <input type="number" name="sqft" placeholder="Sqft">
+            <input type="number" name="bath" placeholder="Bath">
+            <input type="number" name="bhk" placeholder="BHK">
+            <button type="submit">Predict</button>
+        </form>
+
+        <h3 id="result"></h3>
+    </div>
+
+<script>
+document.getElementById("form").onsubmit = async (e) => {
+    e.preventDefault();
+    
+    let formData = new FormData(e.target);
+    let response = await fetch("/predict", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await response.json();
+    document.getElementById("result").innerHTML =
+        "Estimated Price: ₹ " + data.price + " Lakhs";
+}
+</script>
+
+</body>
+</html>
