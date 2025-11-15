@@ -59,7 +59,7 @@ document.getElementById("form").onsubmit = async (e) => {
     e.preventDefault();
     
     let formData = new FormData(e.target);
-    let response = await fetch("/predict", {
+    let response = await fetch("https://yourbackend.onrender.com/predict", {
         method: "POST",
         body: formData
     });
