@@ -7,7 +7,7 @@ A full‑stack Machine Learning web application that predicts house prices (in L
 - ML model: Linear Regression trained on the Bangalore House Prices dataset
 
 Live demo
-- Frontend (Netlify): https://precious-tapioca-6c16bf.netlify.app
+- Frontend (Netlify): https://house-price-prediction-system.netlify.app
 - Backend API (Render): https://house-price-api-s8b3.onrender.com  
   Note: Render free‑tier instances may take ~20 seconds to wake up.
 
